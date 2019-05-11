@@ -3,7 +3,7 @@ import CampaignFactory from "./build/DAICOFactory.json";
 
 const instance = new web3.eth.Contract(
 	JSON.parse(CampaignFactory.interface),
-	"0x1150871bD6383910716E0cDCf90edF0E5ef40c0c"
+	"0xeAA0Fd56617f27829925eeb7912057F4c5c2F26B"
 );
 
 export default instance;

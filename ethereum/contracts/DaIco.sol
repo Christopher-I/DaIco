@@ -223,7 +223,7 @@ function approve(address _recipient, uint256 _amount) public returns (bool succe
             newBallot.creationDate = now;
             newBallot.expiryDate = _icoEndDate;
             approvalRating = 5;
-            status = 1;                  //1 means pre-ico, 2 Ico, 3 DaIco stage
+            status = 0;                  //1 means pre-ico, 2 Ico, 3 DaIco stage
             numberOfRates = 1;
             
             listOfBallots.push(newBallot);
@@ -233,6 +233,7 @@ function approve(address _recipient, uint256 _amount) public returns (bool succe
 
         function payDeposit(uint deposit)public payable{
            // require(deposit>=softCap,"deposit is too low");
+           status = 1; 
         } 
         
         function rateManagment(uint rate)public {
@@ -277,6 +278,7 @@ function approve(address _recipient, uint256 _amount) public returns (bool succe
          //place votes to increase/decrease tap createRequest
     //-1 represents -25%, -2 represents -50%, -3 represents -100 and the same is the proportion for the positive numbers
     function voteForTapChange(uint index)public {
+        status =2;
         //require(!listOfBallots[ballotPointer].complete,"voting is already completed for this ballot");
        // require(confirmVotingPeriod(),"Please try again during the next voting period");
         //require(0<=index && index<= 3,"Please enter a valid vote between 0-3");
@@ -307,8 +309,12 @@ function approve(address _recipient, uint256 _amount) public returns (bool succe
          return true;
          }
     }
+    function endIco() public{
+        status = 2;
+    }
     
     function finalizeTapVote()public shareHolderOnly{
+        status = 3;
         //require((nextVoteDate + 1 days) < now,"Voting period is not yet over");
        // require(!listOfBallots[ballotPointer].complete, "Vote has already been finalized for this ballot");
        // require(now > listOfBallots[ballotPointer].expiryDate,"Ballot period is still in session,please retry after ballot expiry date");

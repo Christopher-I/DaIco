@@ -1,7 +1,17 @@
 import { Button, Tag } from "antd";
 import { Link } from "../routes";
 
-const columnsA = [
+const columnsB = [
+	{
+		title: "ICO Start Date",
+		dataIndex: "icoStartDate",
+		key: "icoStartDate"
+	},
+	{
+		title: "ICO End Date",
+		dataIndex: "icoEndDate",
+		key: "icoEndDate"
+	},
 	{
 		title: "Name",
 		dataIndex: "name",
@@ -9,11 +19,6 @@ const columnsA = [
 		render: (text, record) => (
 			<Link route={`/DaIcos/${record.address}`}>{text}</Link>
 		)
-	},
-	{
-		title: "symbol",
-		dataIndex: "symbol",
-		key: "symbol"
 	},
 
 	{
@@ -23,37 +28,38 @@ const columnsA = [
 	},
 
 	{
-		title: "Approval Rating",
-		dataIndex: "rating",
-		key: "rating"
+		title: "Soft Cap(ETH)",
+		dataIndex: "softCap",
+		key: "softCap"
 	},
 	{
-		title: "Tap Rate",
-		dataIndex: "tapRate",
-		key: "tapRate"
+		title: "Hard Cap(ETH)",
+		dataIndex: "hardCap",
+		key: "hardCap"
 	},
 	{
-		title: "Funding (ETH)",
+		title: "Amount Raised(ETH)",
 		dataIndex: "balance",
 		key: "balance"
 	},
+
 	{
 		title: "",
-		key: "View Details..",
-		dataIndex: "View Details..",
+		key: "Info",
+		dataIndex: "",
 		render: (text, record) => (
-			<Link route={`/DaIcos/${record.address}`}>
+			<Link route={`/PreDaIco/${record.address}`}>
 				<Button
 					style={{
 						align: "right",
 						color: "green"
 					}}
 				>
-					View Details..
+					More Details
 				</Button>
 			</Link>
 		)
 	}
 ];
 
-export default columnsA;
+export default columnsB;

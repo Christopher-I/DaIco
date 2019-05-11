@@ -7,8 +7,8 @@ import Layout from "../components/layout";
 import { Table, Divider, Button, Tag, Tabs } from "antd";
 import DaIco from "../ethereum/getDaIcoDetails";
 import { Link } from "../routes";
-import columnsB from "./columnA";
-import columnsA from "./columnB";
+import columnsA from "./columnA";
+import columnsB from "./columnB";
 import columnsC from "./columnC";
 import web3 from "../ethereum/web3";
 
@@ -65,13 +65,50 @@ class DacIcoDisplay extends React.Component {
 
 			let status;
 
-			if (statusNumber == 1) {
-				status = "pre-Ico";
-			} else if (statusNumber == 2) {
-				status = "Ico";
-			} else if (statusNumber == 3) {
-				status = "post-Ico";
+			if (statusNumber > 1) {
+				let newStatus = "Fund Raising Complete";
+
+				A.push({
+					address: listOfDaicos[i],
+					name: summary[0],
+					symbol: summary[1],
+					balance: _balance[0],
+					raiseUp: _balance[1],
+					minimumContribution: summary[2],
+					maximumContribution: summary[3],
+					softCap: summary[4],
+					hardCap: summary[5],
+					icoStartDate: icostart,
+					icoEndDate: icoEnd,
+					status: newStatus,
+					tapRate: _tapRate + "ETH every " + summary[8] + " days",
+					rating: approvalRating + " out of 5"
+				});
+			} else if (statusNumber < 2) {
+				let newStatus2;
+				if ((status = 0)) {
+					newStatus2 = "Pre-Fund Raising Stage";
+				} else if ((status = 1)) {
+					newStatus2 = "Pre-Fund Raising Stage";
+				}
+				B.push({
+					address: listOfDaicos[i],
+					name: summary[0],
+					symbol: summary[1],
+					balance: _balance[0],
+					raiseUp: _balance[1],
+					minimumContribution: summary[2],
+					maximumContribution: summary[3],
+					softCap: summary[4],
+					hardCap: summary[5],
+					icoStartDate: icostart,
+					icoEndDate: icoEnd,
+					status: newStatus2,
+					tapRate: _tapRate + "ETH every " + summary[8] + " days",
+					rating: approvalRating + " out of 5"
+				});
 			}
+
 			console.log("details are " + erc20Details[0]);
 
 			C.push({
@@ -82,25 +119,8 @@ class DacIcoDisplay extends React.Component {
 				manager: erc20Details[5],
 				contractAddress: erc20Details[4]
 			});
-
-			A.push({
-				address: listOfDaicos[i],
-				name: summary[0],
-				symbol: summary[1],
-				balance: _balance[0],
-				raiseUp: _balance[1],
-				minimumContribution: summary[2],
-				maximumContribution: summary[3],
-				softCap: summary[4],
-				hardCap: summary[5],
-				icoStartDate: icostart,
-				icoEndDate: icoEnd,
-				status: status,
-				tapRate: _tapRate + "ETH every " + summary[8] + " days",
-				rating: approvalRating + " out of 5"
-			});
 		}
-		return { A, B, C, listOfDaicos, erc20Details };
+		return { A, B, C, daIco, listOfDaicos, erc20Details };
 	}
 
 	async componentDidMount() {
@@ -111,6 +131,13 @@ class DacIcoDisplay extends React.Component {
 			dataC: this.props.C
 		});
 	}
+
+	endIco = async () => {
+		const accounts = await web3.eth.getAccounts();
+		this.props.daIco.methods.voteForTapChange("2").send({
+			from: accounts[0]
+		});
+	};
 
 	renderDaIco() {
 		return this.props.DaIcos.map(address => {
@@ -143,7 +170,7 @@ class DacIcoDisplay extends React.Component {
 					<TabPane tab="Pending DaIcos" key="2">
 						<Table
 							columns={columnsB}
-							dataSource={this.state.dataA}
+							dataSource={this.state.dataB}
 						/>
 					</TabPane>
 					<TabPane tab="Deployed ERC20 Tokens" key="3">

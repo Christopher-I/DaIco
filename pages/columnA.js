@@ -1,17 +1,7 @@
 import { Button, Tag } from "antd";
 import { Link } from "../routes";
 
-const columnsB = [
-	{
-		title: "ICO Start Date",
-		dataIndex: "icoStartDate",
-		key: "icoStartDate"
-	},
-	{
-		title: "ICO End Date",
-		dataIndex: "icoEndDate",
-		key: "icoEndDate"
-	},
+const columnsA = [
 	{
 		title: "Name",
 		dataIndex: "name",
@@ -19,6 +9,11 @@ const columnsB = [
 		render: (text, record) => (
 			<Link route={`/DaIcos/${record.address}`}>{text}</Link>
 		)
+	},
+	{
+		title: "symbol",
+		dataIndex: "symbol",
+		key: "symbol"
 	},
 
 	{
@@ -28,50 +23,39 @@ const columnsB = [
 	},
 
 	{
-		title: "Soft Cap(ETH)",
-		dataIndex: "softCap",
-		key: "softCap"
+		title: "Approval Rating",
+		dataIndex: "rating",
+		key: "rating"
 	},
 	{
-		title: "Hard Cap(ETH)",
-		dataIndex: "hardCap",
-		key: "hardCap"
+		title: "Tap Rate",
+		dataIndex: "tapRate",
+		key: "tapRate"
 	},
 	{
-		title: "Amount Raised(ETH)",
+		title: "Funding (ETH)",
 		dataIndex: "balance",
 		key: "balance"
 	},
 	{
 		title: "",
-		key: "Info2",
-		dataIndex: "",
+		key: "View Details..",
+		dataIndex: "View Details..",
 		render: (text, record) => (
-			<Button
-				style={{
-					align: "right",
-					color: "green"
-				}}
-			>
-				Join Whitelist
-			</Button>
-		)
-	},
-	{
-		title: "",
-		key: "Info",
-		dataIndex: "",
-		render: (text, record) => (
-			<Button
-				style={{
-					align: "right",
-					color: "green"
-				}}
-			>
-				Buy ICO Tokens
-			</Button>
+			<Link route={`/DaIcos/${record.address}`}>
+				<Button
+					style={{
+						align: "right",
+						color: "green"
+					}}
+				>
+					View Details..
+				</Button>
+			</Link>
 		)
 	}
 ];
 
-export default columnsB;
+export default columnsA;
+
+

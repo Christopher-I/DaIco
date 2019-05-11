@@ -208,7 +208,7 @@ class daIcoDetails extends React.Component {
 									<p>
 										<b>Balance: </b>
 										<i style={{ color: "green" }}>
-											{this.state.balance} ETH
+											{this.state.balance / 100} ETH
 										</i>
 									</p>
 									<p>
