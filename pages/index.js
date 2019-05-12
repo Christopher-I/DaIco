@@ -37,6 +37,14 @@ class DacIcoDisplay extends React.Component {
 		for (var i = 0; i < listOfERC20s.length; i++) {
 			erc20 = ERC20(listOfERC20s[i]);
 			erc20Details = await erc20.methods.getSummary().call();
+			C.push({
+				tokenName: erc20Details[0],
+				tokenSymbol: erc20Details[1],
+				initSupply: erc20Details[2],
+				allocation: erc20Details[3],
+				manager: erc20Details[5],
+				contractAddress: erc20Details[4]
+			});
 		}
 
 		for (var i = 0; i < listOfDaicos.length; i++) {
@@ -110,15 +118,6 @@ class DacIcoDisplay extends React.Component {
 			}
 
 			console.log("details are " + erc20Details[0]);
-
-			C.push({
-				tokenName: erc20Details[0],
-				tokenSymbol: erc20Details[1],
-				initSupply: erc20Details[2],
-				allocation: erc20Details[3],
-				manager: erc20Details[5],
-				contractAddress: erc20Details[4]
-			});
 		}
 		return { A, B, C, daIco, listOfDaicos, erc20Details };
 	}
